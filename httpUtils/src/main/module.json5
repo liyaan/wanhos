@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "httpUtils",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

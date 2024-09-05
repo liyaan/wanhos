@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "tixi",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "app": {
+    "signingConfigs": [],
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "httpUtils",
+      "srcPath": "./httpUtils"
+    },
+    {
+      "name": "common",
+      "srcPath": "./common"
+    },
+    {
+      "name": "libWidght",
+      "srcPath": "./libWidght"
+    },
+    {
+      "name": "home",
+      "srcPath": "./main/home"
+    },
+    {
+      "name": "tixi",
+      "srcPath": "./main/tixi"
+    },
+    {
+      "name": "daohang",
+      "srcPath": "./main/daohang"
+    },
+    {
+      "name": "xiangmu",
+      "srcPath": "./main/xiangmu"
+    },
+    {
+      "name": "oneSelf",
+      "srcPath": "./main/oneSelf"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "daohang",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

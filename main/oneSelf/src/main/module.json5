@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "oneSelf",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

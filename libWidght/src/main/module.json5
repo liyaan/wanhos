@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "libWidght",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

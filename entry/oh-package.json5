@@ -1,0 +1,18 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/libentry.so": "file:./src/main/cpp/types/libentry",
+    "@ohos/httpUtils": "file:../httpUtils",
+    "@ohos/home": "file:../main/home",
+    "@ohos/tixi": "file:../main/tixi",
+    "@ohos/daohang": "file:../main/daohang",
+    "@ohos/xiangmu": "file:../main/xiangmu",
+    "@ohos/oneSelf": "file:../main/oneSelf"
+  }
+}

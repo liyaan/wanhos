@@ -2,6 +2,7 @@ import PreferencesUtils from './src/main/ets/components/mainpage/PreferencesUtil
 export { MainPage } from './src/main/ets/components/mainpage/MainPage'
 export { HttpManager } from './src/main/ets/components/mainpage/HttpManager'
 export { AbsHttpRequest } from './src/main/ets/components/mainpage/AbsHttpRequest'
+export { PreferenceUtil } from './src/main/ets/components/mainpage/utils/PreferenceUtil'
 export { GetMethod ,Param,PostMethod,PostJsonMethod,FunctionParam,GetUrlValueMethod} from './src/main/ets/components/mainpage/decorator/DecoratorFunction'
 
 export default PreferencesUtils

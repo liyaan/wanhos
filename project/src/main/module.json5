@@ -1,0 +1,15 @@
+{
+  "module": {
+    "name": "project",
+    "type": "shared",
+    "description": "$string:page_show",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ],
+    'deliveryWithInstall': true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+
+  }
+}

@@ -2,11 +2,19 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
-import PreferencesUtils  from '@ohos/httpUtils';
+import PreferencesUtils  from '@ohos/login/oh_modules/@ohos/httpUtils';
 export default class EntryAbility extends UIAbility {
   onCreate(want, launchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-     PreferencesUtils.createPreferences(this.context)
+     PreferencesUtils.createPreferences(this.context).then((re)=>{
+       if (re!==null) {
+         hilog.info(0x0000, 'testTag', '%{public}s', 're is not null');
+       }else{
+         hilog.info(0x0000, 'testTag', '%{public}s', 're is  null');
+       }
+     }).catch((err)=>{
+       hilog.info(0x0000, 'testTag', '%{public}s', JSON.stringify(err));
+     })
 
   }
 

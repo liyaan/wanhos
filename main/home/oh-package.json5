@@ -6,6 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@ohos/httpUtils": "file:../../httpUtils"
+    "@ohos/httpUtils": "file:../../httpUtils",
+    "@ohos/libWidght": "file:../../libWidght"
   }
 }

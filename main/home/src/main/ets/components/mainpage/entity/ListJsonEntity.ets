@@ -1,10 +1,11 @@
+import ArrayList from '@ohos.util.ArrayList'
 export class ListJsonEntity{
   curPage:number
   offset:number
   pageCount:number
   size:number
   total:number
-  datas:Array<ListJsonData>
+  datas:ListJsonData[]
 }
 
 export class ListJsonData{

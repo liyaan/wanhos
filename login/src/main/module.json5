@@ -1,0 +1,12 @@
+{
+  "module": {
+    "name": "login",
+    "type": "shared",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ],
+   "pages": "$profile:main_pages",
+    "deliveryWithInstall": true
+  }
+}

@@ -8,11 +8,6 @@
   "dependencies": {},
   "devDependencies": {
     "@types/libentry.so": "file:./src/main/cpp/types/libentry",
-    "@ohos/httpUtils": "file:../httpUtils",
-    "@ohos/home": "file:../main/home",
-    "@ohos/tixi": "file:../main/tixi",
-    "@ohos/daohang": "file:../main/daohang",
-    "@ohos/xiangmu": "file:../main/xiangmu",
-    "@ohos/oneSelf": "file:../main/oneSelf"
+    "@ohos/login": "file:../login"
   }
 }

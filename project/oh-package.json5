@@ -1,0 +1,16 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@ohos/httpUtils": "file:../httpUtils",
+    "@ohos/home": "file:../main/home",
+    "@ohos/tixi": "file:../main/tixi",
+    "@ohos/daohang": "file:../main/daohang",
+    "@ohos/xiangmu": "file:../main/xiangmu",
+    "@ohos/oneSelf": "file:../main/oneSelf"
+  }
+}

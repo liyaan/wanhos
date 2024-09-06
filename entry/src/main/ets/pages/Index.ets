@@ -1,7 +1,6 @@
 import hilog from '@ohos.hilog';
 import testNapi from 'libentry.so'
-import router from '@ohos.router';
-import { Utils } from '../utils/Utils';
+import { Utils } from '@ohos/login';
 
 @Entry
 @Component
@@ -33,6 +32,7 @@ struct Index {
         .rotate({ angle: this.rotateAngle })
         .onClick(() => {
           hilog.info(0x0000, 'testTag', 'Test NAPI 2 + 3 = %{public}d', testNapi.add(2, 3));
+          Utils.getMainLayout()
         }).transition({ type: TransitionType.Insert, scale: { x: 0, y: 1.0 } })
           .transition({ type: TransitionType.Delete, rotate: { angle: 180 } })
     }

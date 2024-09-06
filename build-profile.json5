@@ -36,10 +36,6 @@
       "srcPath": "./libWidght"
     },
     {
-      "name": "home",
-      "srcPath": "./main/home"
-    },
-    {
       "name": "tixi",
       "srcPath": "./main/tixi"
     },
@@ -54,6 +50,34 @@
     {
       "name": "oneSelf",
       "srcPath": "./main/oneSelf"
+    },
+    {
+      "name": "login",
+      "srcPath": "./login",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "project",
+      "srcPath": "./project",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "home",
+      "srcPath": "./main/home"
     }
   ]
 }

@@ -1,17 +1,17 @@
 import hilog from '@ohos.hilog';
 import router from '@ohos.router';
-import PreferencesUtils, {Param, PostMethod} from '@ohos/httpUtils'
-import { BaseEntity } from '../entity/BaseEntity';
-import { LoginEntity } from '../entity/LoginEntity';
-import { ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
-import { REGISTER } from '../utils/RouterUtils';
-import { PASSWORD, USERNAME } from '../utils/Consts';
-import { Utils } from '../utils/Utils';
+import PreferencesUtils, {Param, PostMethod, PreferenceUtil} from '@ohos/httpUtils'
 
+import { ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
+import { PASSWORD, USERNAME } from './utils/Consts';
+import { Utils } from './utils/Utils';
+import { BaseEntity } from './entity/BaseEntity';
+import { LoginEntity } from './entity/LoginEntity';
+import { REGISTER } from './utils/RouterUtils';
 
 @Entry
 @Component
-struct Login {
+export struct Login {
   @State message: string = '用户登录'
   @State loginPhone: string = ''
   @State loginPassWord: string = ''
@@ -67,8 +67,10 @@ struct Login {
 
           this.login<BaseEntity<LoginEntity>>(this.loginPhone,this.loginPassWord)
             .then((result)=>{
-              hilog.info(0x0000, 'testTag', 'result=%{public}s', result.errorMsg);
+              hilog.info(0x0000, 'testTag', 'result=%{public}s', result.data.username);
               if(result.errorCode==0){
+                PreferenceUtil.writeString(USERNAME,this.loginPhone)
+                PreferenceUtil.writeString(PASSWORD,this.loginPassWord)
                 PreferencesUtils.put(USERNAME,this.loginPhone)
                 PreferencesUtils.put(PASSWORD,this.loginPassWord)
                 Utils.getMainLayout()
@@ -118,7 +120,11 @@ struct Login {
           .fontSize(18)
           .align(Alignment.Bottom)
           .onClick(()=>{
-            router.pushUrl({url:REGISTER})
+            router.pushUrl({url:REGISTER}).then(()=>{
+              hilog.info(0x0000, 'testTag', '注册=%{public}s','success');
+            }).catch((error)=>{
+              hilog.info(0x0000, 'testTag', '注册=%{public}s',JSON.stringify(error));
+            })
           })
       }
       .width('90%')

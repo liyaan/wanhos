@@ -1,14 +1,14 @@
 import hilog from '@ohos.hilog';
 import router from '@ohos.router';
 import { HttpManager } from '@ohos/httpUtils';
-import { BaseEntity } from '../entity/BaseEntity';
-import { LoginEntity } from '../entity/LoginEntity';
+import { BaseEntity } from './entity/BaseEntity';
+import { LoginEntity } from './entity/LoginEntity';
 import { ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
 
 
 @Entry
 @Component
-struct Register {
+export struct Register {
   @State message: string = '用户注册'
   @State loginPhone: string = ''
   @State loginPassWord: string = ''

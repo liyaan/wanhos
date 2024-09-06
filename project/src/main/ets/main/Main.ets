@@ -1,5 +1,5 @@
 
-import * as size from '../theme/size';
+import * as size from './theme/size';
 import {MainHome} from '@ohos/home'
 import {TxHomePage} from '@ohos/tixi'
 import {DhMainPage} from '@ohos/daohang'
@@ -7,7 +7,7 @@ import {XmMainPage} from '@ohos/xiangmu'
 import {OneMainPage} from '@ohos/oneSelf'
 @Entry
 @Component
-struct Main {
+export struct Main {
   @State currentIndex: number = 0
   private tabsController: TabsController = new TabsController()
 
@@ -40,7 +40,7 @@ struct Main {
       .barHeight(size.barHeight)
       .barMode(BarMode.Fixed)
 
-      Image(this.currentIndex === 2 ? $r('app.media.add') : $r('app.media.add_ed'))
+      Image(this.currentIndex === 2 ? $r("app.media.center_add") : $r('app.media.add_ed'))
         .margin({bottom:10})
         .height(60)
         .alignSelf(ItemAlign.Center)// 设置悬浮图标居中对齐

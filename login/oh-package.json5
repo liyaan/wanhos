@@ -1,12 +1,12 @@
 {
-  "name": "libwidght",
+  "name": "login",
   "version": "1.0.0",
   "description": "Please describe the basic information.",
   "main": "index.ets",
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@ohos/pulltorefresh": "^2.0.1"
-  },
-  "devDependencies": {}
+    "@ohos/httpUtils": "file:../httpUtils",
+    "@ohos/project": "file:../project",
+  }
 }

@@ -186,7 +186,8 @@ export function GetUrlValueMethod(url: string): MethodDecorator {
       descriptor: PropertyDescriptor
   ) {
     const originalMethod = descriptor.value
-    let URL: string = url;
+    let URL: string = url
+    let replaceURL = url
     let options: RequestOptions = {
       url: URL,
       queryParams: {}
@@ -200,14 +201,14 @@ export function GetUrlValueMethod(url: string): MethodDecorator {
           let paramName = funParamValueMap[JSON.stringify(obj)];
           if (typeof paramName !== 'undefined') {
             if (typeof arg === 'string' || typeof arg === 'object' || arg instanceof ArrayBuffer || typeof arg === 'number') {
-              console.log(TAG+'paramName:', paramName+"  "+arg)
-              URL = URL.replace(paramName,arg)
+              console.log(TAG+' paramName:', paramName+"  "+arg+"  "+URL)
+              URL = replaceURL.replace(paramName,arg)
             } else {
               console.log('参数类型不对')
               throw new Error(`Invalid parameter type at index ${index}.`);
             }
           }
-          console.log(TAG+'URL:', URL)
+          console.log(TAG+' URL:', URL)
         })
         options.url = URL
         // args.forEach((arg, index) => {

@@ -6,7 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@ohos/pulltorefresh": "^2.0.1"
+
   },
   "devDependencies": {}
 }

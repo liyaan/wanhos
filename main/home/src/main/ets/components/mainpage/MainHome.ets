@@ -5,10 +5,13 @@ import { BaseEntity } from './entity/BaseEntity'
 import { ListJsonData, ListJsonEntity } from './entity/ListJsonEntity'
 import { TAG } from './utils/Consts'
 import promptAction from '@ohos.promptAction'
-import ArrayList from '@ohos.util.ArrayList'
+import { ShowToast } from '@ohos/libWidght'
+
 import { BannerListEntity } from './entity/BannerListEntity'
 import { FriendJson } from './entity/FriendJson'
 import { HotkeyJson } from './entity/HotkeyJson'
+import { FriendJsonHome } from './FriendJsonHome'
+
 
 @Component
 export struct MainHome {
@@ -28,6 +31,16 @@ export struct MainHome {
   private page: number = 0
   private swiperController: SwiperController = new SwiperController()
 
+  dialogController:CustomDialogController = new CustomDialogController(
+    {
+      builder:FriendJsonHome({cancel:()=>{
+        this.dialogController.close()
+      }}),
+      autoCancel: true,
+      customStyle: true
+    }
+  )
+
   @Builder
   private LoadingCustom() {
     Stack() {
@@ -39,9 +52,9 @@ export struct MainHome {
   }
 
   aboutToAppear() {
-    this.getDataList()
+
     this.getBannerList()
-    this.getFriendJson()
+
     this.getHotkeyJson()
   }
 
@@ -51,6 +64,8 @@ export struct MainHome {
         this.bannerList = []
       }
       this.bannerList.push(...result.data)
+
+      this.getFriendJson()
     })
   }
 
@@ -76,6 +91,8 @@ export struct MainHome {
       } else {
         this.friendJson.push(...result.data)
       }
+      this.getDataList()
+      Log.info("getFriendJson = " + this.friendJson.length)
     })
   }
 
@@ -95,7 +112,7 @@ export struct MainHome {
           if (this.hotkeyJson.length > 0) {
             Swiper(this.swiperController) {
               ForEach(this.hotkeyJson, (item: HotkeyJson, index) => {
-                Row(){
+                Row() {
                   Text(item.name)
                     .fontColor('#808080')
                     .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -108,9 +125,10 @@ export struct MainHome {
                     .width(70)
                     .height(45)
                     .align(Alignment.Center)
-                    .margin({ right: 25 }).onClick(()=>{
-                      Log.info("name = "+item.name)
-                  })
+                    .margin({ right: 25 })
+                    .onClick(() => {
+                      ShowToast.show(item.name + " 搜索功能开发中")
+                    })
                 }.width('100%')
                 .height(50)
                 .borderRadius(25)
@@ -120,7 +138,7 @@ export struct MainHome {
             .autoPlay(true)
             .interval(2000)
             .width('100%')
-            .height(45)
+            .height(50)
             .vertical(true)
             .indicator(false)
           }
@@ -159,17 +177,20 @@ export struct MainHome {
                   .padding({ left: 20 })
                   .fontWeight(FontWeight.Bold)
                   .backgroundColor("#f7f7f7")
+                  .onClick(() => {
+                    this.dialogController.open()
+                  })
                 GridRow({ columns: 2 }) {
                   ForEach(this.friendJson, (item: FriendJson, index) => {
                     GridCol() {
                       Column() {
                         Image("https://qna.smzdm.com/202409/08/66dd399098a88773.jpg_e680.jpg")
-                          .width('100%').height(80).objectFit(ImageFit.Fill).borderRadius(8)
+                          .width('100%').height(90).objectFit(ImageFit.Fill).borderRadius(8)
                         Text(item.name)
                           .fontSize(16)
                           .align(Alignment.Bottom)
                           .textOverflow({ overflow: TextOverflow.Ellipsis })
-                      }.height(100).width('100%')
+                      }.height(110).width('100%')
                     }.margin({ left: 5, right: 5 })
                   }, (item) => JSON.stringify(item))
                 }.margin({ top: 5, bottom: 5 })
@@ -222,3 +243,4 @@ export struct MainHome {
     .height('100%').backgroundColor('#FFFFFF')
   }
 }
+

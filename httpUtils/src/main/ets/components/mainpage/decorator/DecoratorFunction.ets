@@ -186,31 +186,56 @@ export function GetUrlValueMethod(url: string): MethodDecorator {
       descriptor: PropertyDescriptor
   ) {
     const originalMethod = descriptor.value
-    let URL: string = url
+    // let URL: string = url
     let replaceURL = url
     let options: RequestOptions = {
-      url: URL,
+      url: url,
       queryParams: {}
     };
 
     descriptor.value = async function<T>(...args: any[]) {
       Log.log(`${TAG} Method ${methodName} is start with metadata: ${url}  ${JSON.stringify(args)}.`)
+
       if (args.length > 0) {
+
         args.forEach((arg, index) => {
+          // 通过已知的信息构造组合Key对象
           let obj: FunParamMapKey = { target: target, methodName: methodName, index: index };
-          let paramName = funParamValueMap[JSON.stringify(obj)];
+          let paramName = funParamMap[JSON.stringify(obj)];
           if (typeof paramName !== 'undefined') {
             if (typeof arg === 'string' || typeof arg === 'object' || arg instanceof ArrayBuffer || typeof arg === 'number') {
-              console.log(TAG+' paramName:', paramName+"  "+arg+"  "+URL)
-              URL = replaceURL.replace(paramName,arg)
+              options.queryParams[paramName] = arg
             } else {
               console.log('参数类型不对')
               throw new Error(`Invalid parameter type at index ${index}.`);
             }
           }
-          console.log(TAG+' URL:', URL)
+        });
+        //拼接请求参数
+        const urlParams = Object.keys(options.queryParams).map(key => `${key}=${options.queryParams[key]}`).join('&')
+        console.log(TAG+'urlParams:', urlParams)
+        if (url.includes("?")) {
+          options.url = `${url}${urlParams}`
+        } else {
+          options.url = `${url}?${urlParams}`
+        }
+        replaceURL = options.url
+        console.log(TAG+' replaceURL:', replaceURL)
+        args.forEach((arg, index) => {
+          let obj: FunParamMapKey = { target: target, methodName: methodName, index: index };
+          let paramName = funParamValueMap[JSON.stringify(obj)];
+          if (typeof paramName !== 'undefined') {
+            if (typeof arg === 'string' || typeof arg === 'object' || arg instanceof ArrayBuffer || typeof arg === 'number') {
+              console.log(TAG+' paramName:', paramName+"  "+arg+"  "+options.url)
+              options.url = replaceURL.replace(paramName,arg)
+            } else {
+              console.log('参数类型不对')
+              throw new Error(`Invalid parameter type at index ${index}.`);
+            }
+          }
+          console.log(TAG+' URL:', options.url)
         })
-        options.url = URL
+        // options.url = URL
         // args.forEach((arg, index) => {
         //   // 通过已知的信息构造组合Key对象
         //   let obj: FunParamMapKey = { target: target, methodName: methodName, index: index };
@@ -239,7 +264,7 @@ export function GetUrlValueMethod(url: string): MethodDecorator {
         //   options.url = URL
         // }
       } else {
-        options.url = URL
+        options.url = url
       }
       const result = new Promise<T>((resolve, reject) => {
         HttpManager.getInstance()

@@ -23,7 +23,7 @@ export struct Main {
         }.tabBar(this.tabBuilder("体系",1,$r('app.media.tab_myclass'),$r('app.media.tab_myclass_1')))
 
         TabContent() {
-          DhMainPage()
+          DhMainPage({controller:this.tabsController})
         }.tabBar(this.placehostBuilder())
 
         TabContent() {

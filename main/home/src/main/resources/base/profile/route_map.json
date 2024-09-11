@@ -1,0 +1,12 @@
+{
+  "routerMap": [
+    {
+      "name": "FriendJsonHome",
+      "pageSourceFile": "ets/components/mainpage/FriendJsonHome.ets",
+      "buildFunction": "FriendJsonHomeBuilder",
+      "data": {
+        "description" : "this is FriendJsonHome"
+      }
+    }
+  ]
+}

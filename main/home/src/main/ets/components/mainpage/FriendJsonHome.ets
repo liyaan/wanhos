@@ -1,7 +1,9 @@
-import { TitlePage } from '@ohos/libWidght'
+import { TitlePage, WBE_PAGE_URL, WebEntity,ShowToast } from '@ohos/libWidght'
 import { api } from './api/Api'
 import { BaseEntity } from './entity/BaseEntity'
 import { FriendJson } from './entity/FriendJson'
+import router from '@ohos.router'
+import { Log } from '@ohos/httpUtils/oh_modules/@ohos/common/src/main/ets/components/mainpage/log/Log'
 
 @CustomDialog
 @Component
@@ -41,7 +43,7 @@ export struct FriendJsonHome {
     Column(){
       TitlePage({title:"常用网站",back:this.cancel})
       Grid() {
-        ForEach(this.friendJson, (item, index) => {
+        ForEach(this.friendJson, (item:FriendJson, index) => {
           GridItem() {
             Column() {
               Image("https://qna.smzdm.com/202409/08/66dd399098a88773.jpg_e680.jpg")
@@ -50,7 +52,18 @@ export struct FriendJsonHome {
                 .fontSize(16)
                 .align(Alignment.Bottom)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
-            }.height(120).width('100%')
+            }.height(120).width('100%').onClick(()=>{
+              let paramsInfo:WebEntity = {
+                url:item.link,
+                title:item.name
+              }
+              router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo}).then((res)=>{
+                Log.info("testTag then"+JSON.stringify(res))
+                this.cancel()
+              }).catch((error)=>{
+                Log.info("testTag catch "+JSON.stringify(error))
+              })
+            })
           }
         }, (item) => JSON.stringify(item))
       }

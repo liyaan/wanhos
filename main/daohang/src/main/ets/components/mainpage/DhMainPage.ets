@@ -1,7 +1,8 @@
 import { api } from './api/Api'
 import { BaseEntity } from './entity/BaseEntity'
 import { NaviJsonData, NaviJsonEntity } from './entity/NaviJsonEntity'
-
+import { WBE_PAGE_URL, WebEntity } from  '@ohos/libWidght'
+import router from '@ohos.router'
 @Component
 export struct DhMainPage {
   @State message: string = '导航'
@@ -10,7 +11,6 @@ export struct DhMainPage {
   private subController: TabsController = new TabsController()
   private panOptionRight: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.Left })
   private panOptionLeft: PanGestureOptions = new PanGestureOptions({ direction: PanDirection.Right })
-  private arr: string[] = ["aaaaaaaaaaaaa", "bbbbbbbbbbbb", "ccccccccccccc", "ddddddddddd", "eeeeeeeeee", "f", "g"];
   @State naviJsonEntity: NaviJsonEntity[] = []
   @State fontColor: string = '#182431'
   @State selectedFontColor: string = '#007DFF'
@@ -102,7 +102,13 @@ export struct DhMainPage {
               .borderRadius(8)
               .backgroundColor(0x007DFF)
               .padding(10)
-          }
+          }.onClick(()=>{
+            let paramsInfo:WebEntity = {
+              url:item.link,
+              title:item.title
+            }
+            router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo})
+          })
         })
       }.layoutWeight(1).padding({ left: 10, right: 10 })
     }

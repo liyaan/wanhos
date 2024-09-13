@@ -25,15 +25,27 @@
     },
     {
       "name": "httpUtils",
-      "srcPath": "./httpUtils"
-    },
-    {
-      "name": "common",
-      "srcPath": "./common"
+      "srcPath": "./httpUtils",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     },
     {
       "name": "libWidght",
-      "srcPath": "./libWidght"
+      "srcPath": "./libWidght",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     },
     {
       "name": "tixi",
@@ -54,6 +66,18 @@
     {
       "name": "login",
       "srcPath": "./login",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "common",
+      "srcPath": "./common",
       "targets": [
         {
           "name": "default",

@@ -1,8 +1,7 @@
-export default class GlobalContext {
+import { Constants } from './Constants';
+export  class GlobalContext {
   private constructor() { }
   private static instance: GlobalContext;
-  private _objects = new Map<string, Object>();
-
   public static getContext(): GlobalContext {
     if (!GlobalContext.instance) {
       GlobalContext.instance = new GlobalContext();
@@ -11,10 +10,12 @@ export default class GlobalContext {
   }
 
   getObject(value: string): Object | undefined {
-    return this._objects.get(value);
+    return Constants.OBJECT_MAP.get(value);
   }
 
   setObject(key: string, objectClass: Object): void {
-    this._objects.set(key, objectClass);
+    Constants.OBJECT_MAP.set(key, objectClass);
   }
+
+
 }

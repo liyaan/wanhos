@@ -1,0 +1,1 @@
+export const WBE_PAGE_URL:string = "@bundle:com.liyaan.wanhos/libWidght/ets/components/mainpage/WebPage"

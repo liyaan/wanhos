@@ -1,7 +1,8 @@
-import { TitlePage,ShowToast } from '@ohos/libWidght'
+import { TitlePage,ShowToast, WebEntity, WBE_PAGE_URL } from '@ohos/libWidght'
 import { api } from './api/Api'
 import { BaseEntity } from './entity/BaseEntity'
 import { ListJsonData, TreeJsonList } from './entity/TreeJsonList'
+import router from '@ohos.router'
 @CustomDialog
 @Component
 export struct TxSecondDialog{
@@ -64,7 +65,17 @@ export struct TxSecondDialog{
                 .textAlign(TextAlign.Center)
                 .borderRadius(10)
                 .backgroundColor(0x007DFF).padding(8)
-            }
+            }.onClick(()=>{
+              let paramsInfo:WebEntity = {
+                url:item.link,
+                title:item.title
+              }
+              router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo}).then((res)=>{
+                this.cancel()
+              }).catch((error)=>{
+
+              })
+            })
 
           }, (item) => JSON.stringify(item))
         }.padding({ top: 10, left: 10, right: 10 })

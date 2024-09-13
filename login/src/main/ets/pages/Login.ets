@@ -1,9 +1,8 @@
 import hilog from '@ohos.hilog';
 import router from '@ohos.router';
-import PreferencesUtils, {Param, PostMethod, PreferenceUtil} from '@ohos/httpUtils'
+import  {Param, PostMethod, preferenceUtil,Constants} from '@ohos/httpUtils'
 
-import { ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
-import { PASSWORD, USERNAME } from './utils/Consts';
+import { Log, ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
 import { Utils } from './utils/Utils';
 import { BaseEntity } from './entity/BaseEntity';
 import { LoginEntity } from './entity/LoginEntity';
@@ -66,14 +65,15 @@ export struct Login {
           // })
 
           this.login<BaseEntity<LoginEntity>>(this.loginPhone,this.loginPassWord)
-            .then((result)=>{
+            .then(async (result)=>{
               hilog.info(0x0000, 'testTag', 'result=%{public}s', result.data.username);
               if(result.errorCode==0){
-                PreferenceUtil.writeString(USERNAME,this.loginPhone)
-                PreferenceUtil.writeString(PASSWORD,this.loginPassWord)
-                PreferencesUtils.put(USERNAME,this.loginPhone)
-                PreferencesUtils.put(PASSWORD,this.loginPassWord)
-                Utils.getMainLayout()
+                // PreferenceUtil.writeString(Constants.USERNAME,this.loginPhone)
+                // PreferenceUtil.writeString(Constants.PASSWORD,this.loginPassWord)
+                await preferenceUtil.put(Constants.USERNAME,this.loginPhone)
+                await preferenceUtil.put(Constants.PASSWORD,this.loginPassWord)
+
+                 Utils.getMainLayout()
               }else{
                 ShowToastUtils.show(result.errorMsg)
               }

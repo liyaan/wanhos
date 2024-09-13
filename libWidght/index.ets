@@ -1,3 +1,6 @@
 export { MainPage } from './src/main/ets/components/mainpage/MainPage'
 export { ShowToast } from './src/main/ets/components/mainpage/ShowToast'
 export { TitlePage } from './src/main/ets/components/mainpage/TitlePage'
+export { WebPage } from './src/main/ets/components/mainpage/WebPage'
+export { WebEntity } from './src/main/ets/components/mainpage/WebEntity'
+export { WBE_PAGE_URL } from './src/main/ets/components/mainpage/RouterUtils'

@@ -1,5 +1,6 @@
-import { TitlePage,ShowToast } from '@ohos/libWidght'
+import { TitlePage,ShowToast, WebEntity, WBE_PAGE_URL } from '@ohos/libWidght'
 import { ProjectJsonData } from './entity/ProjectTreeJsonEntity'
+import router from '@ohos.router'
 
 @CustomDialog
 @Component
@@ -39,7 +40,17 @@ export struct XmInfoDialog{
         }.height('100%')
         .width('100%')
         .margin({bottom:55})
-        Button("网页详情").width('100%').height(50).borderRadius(10)
+        Button("网页详情").width('100%').height(50).borderRadius(10).onClick(()=>{
+          let paramsInfo:WebEntity = {
+            url:this.projectJsonData.link,
+            title:this.projectJsonData.title
+          }
+          router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo}).then((res)=>{
+            this.cancel()
+          }).catch((error)=>{
+
+          })
+        })
 
       }.alignContent(Alignment.Bottom).width('100%').layoutWeight(1)
 

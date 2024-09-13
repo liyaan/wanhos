@@ -1,10 +1,12 @@
 {
   "module": {
     "name": "httpUtils",
-    "type": "har",
+    "type": "shared",
     "deviceTypes": [
       "default",
       "tablet"
-    ]
+    ],
+    "pages": "$profile:main_pages",
+    "deliveryWithInstall": true
   }
 }

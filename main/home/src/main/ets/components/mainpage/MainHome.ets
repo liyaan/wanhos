@@ -5,12 +5,13 @@ import { BaseEntity } from './entity/BaseEntity'
 import { ListJsonData, ListJsonEntity } from './entity/ListJsonEntity'
 import { TAG } from './utils/Consts'
 import promptAction from '@ohos.promptAction'
-import { ShowToast } from '@ohos/libWidght'
+import { ShowToast,WBE_PAGE_URL, WebEntity } from '@ohos/libWidght'
 
 import { BannerListEntity } from './entity/BannerListEntity'
 import { FriendJson } from './entity/FriendJson'
 import { HotkeyJson } from './entity/HotkeyJson'
 import { FriendJsonHome } from './FriendJsonHome'
+import router from '@ohos.router'
 
 
 @Component
@@ -158,6 +159,13 @@ export struct MainHome {
                 Swiper(this.swiperController) {
                   ForEach(this.bannerList, (item: BannerListEntity, index) => {
                     Image(item.imagePath).height(200).width('95%').objectFit(ImageFit.Contain).borderRadius(20)
+                      .onClick(()=>{
+                        let paramsInfo:WebEntity = {
+                          url:item.url,
+                          title:item.title
+                        }
+                        router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo})
+                      })
                   }, (item) => JSON.stringify(item))
                 }
                 .loop(true)
@@ -191,6 +199,13 @@ export struct MainHome {
                           .align(Alignment.Bottom)
                           .textOverflow({ overflow: TextOverflow.Ellipsis })
                       }.height(110).width('100%')
+                      .onClick(()=>{
+                        let paramsInfo:WebEntity = {
+                          url:item.link,
+                          title:item.name
+                        }
+                        router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo})
+                      })
                     }.margin({ left: 5, right: 5 })
                   }, (item) => JSON.stringify(item))
                 }.margin({ top: 5, bottom: 5 })
@@ -209,7 +224,13 @@ export struct MainHome {
                   .textAlign(TextAlign.Center)
                   .borderRadius(10)
                   .backgroundColor(0x007DFF)
-              }
+              }.onClick(()=>{
+                let paramsInfo:WebEntity = {
+                  url:item.link,
+                  title:item.title
+                }
+                router.pushUrl({url:WBE_PAGE_URL,params:paramsInfo})
+              })
             }, item => item)
           }.padding({ top: 10, left: 10, right: 10 })
           .onScrollStop(() => {

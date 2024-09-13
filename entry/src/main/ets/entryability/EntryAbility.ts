@@ -2,19 +2,11 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
-import PreferencesUtils  from '@ohos/login/oh_modules/@ohos/httpUtils';
+import { preferenceUtil }  from '@ohos/login/oh_modules/@ohos/httpUtils';
 export default class EntryAbility extends UIAbility {
   onCreate(want, launchParam) {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
-     PreferencesUtils.createPreferences(this.context).then((re)=>{
-       if (re!==null) {
-         hilog.info(0x0000, 'testTag', '%{public}s', 're is not null');
-       }else{
-         hilog.info(0x0000, 'testTag', '%{public}s', 're is  null');
-       }
-     }).catch((err)=>{
-       hilog.info(0x0000, 'testTag', '%{public}s', JSON.stringify(err));
-     })
+
 
   }
 
@@ -25,7 +17,8 @@ export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
+    globalThis.context = this.context;
+    preferenceUtil.createPreferences(this.context)
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {
         hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');

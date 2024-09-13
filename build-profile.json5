@@ -102,6 +102,18 @@
     {
       "name": "home",
       "srcPath": "./main/home"
+    },
+    {
+      "name": "onelibrary",
+      "srcPath": "./onelibrary",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

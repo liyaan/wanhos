@@ -1,12 +1,11 @@
 {
-  "name": "oneself",
+  "name": "onelibrary",
   "version": "1.0.0",
   "description": "Please describe the basic information.",
-  "main": "index.ets",
+  "main": "./src/main/ets/Index.ets",
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@ohos/httpUtils": "file:../../httpUtils",
-    "@ohos/onelibrary": "file:../../onelibrary"
+    "@ohos/httpUtils": "file:../httpUtils"
   }
 }

@@ -1,0 +1,37 @@
+@CustomDialog
+@Component
+export struct AlertBottomDialog{
+  dialogController?:CustomDialogController
+  close:()=>void
+  contents: string[]
+  itemClick:(number)=>void
+  build(){
+    Column(){
+      ForEach(this.contents,(item,index)=>{
+        Row(){
+          Text(item).fontSize(18).fontColor(Color.Black)
+        }.alignItems(VerticalAlign.Center)
+        .justifyContent(FlexAlign.Center)
+        .width('100%')
+        .height(50)
+        .border({width:{bottom:0.5},color:{bottom:'rgb(216,216,216)'},style:{bottom:BorderStyle.Solid}})
+        .onClick(()=>{
+          this.itemClick(index)
+          this.close()
+        })
+      })
+      Row(){
+        Text("取消")
+          .fontColor('rgb(0,122,255)')
+          .fontSize(18)
+          .fontWeight(FontWeight.Bold)
+      }.justifyContent(FlexAlign.Center)
+      .alignItems(VerticalAlign.Center)
+      .width('100%')
+      .height(50)
+      .onClick(()=>{
+        this.close()
+      })
+    }
+  }
+}

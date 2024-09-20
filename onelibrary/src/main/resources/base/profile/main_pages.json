@@ -2,6 +2,7 @@
   "src": [
     "pages/ScrollDhJb",
     "pages/ListHeader",
-    "pages/ListTabHeader"
+    "pages/ListTabHeader",
+    "pages/ListTabScrollHeader"
   ]
 }

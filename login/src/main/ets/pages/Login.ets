@@ -63,7 +63,8 @@ export struct Login {
           // this.addO1<BaseEntity<TextList>>('10039').then((result)=>{
           //   hilog.info(0x0000, 'testTag', 'this.add() =%{public}s',result.data.links.articleList[0].link)
           // })
-          httpHeaderMap.set("aaaaa","bbbbbbbbbbbbbbb")
+          //增加header
+          // httpHeaderMap.set("aaaaa","bbbbbbbbbbbbbbb")
           this.login<BaseEntity<LoginEntity>>(this.loginPhone,this.loginPassWord,((value)=>{
             hilog.info(0x0000, 'testTag', 'httpHeaderMap result=%{public}s', value);
           }),((value)=>{
@@ -73,12 +74,10 @@ export struct Login {
             .then(async (result)=>{
               hilog.info(0x0000, 'testTag', 'result=%{public}s', result.data.username);
               if(result.errorCode==0){
-                // PreferenceUtil.writeString(Constants.USERNAME,this.loginPhone)
-                // PreferenceUtil.writeString(Constants.PASSWORD,this.loginPassWord)
-                // await preferenceUtil.put(Constants.USERNAME,this.loginPhone)
-                // await preferenceUtil.put(Constants.PASSWORD,this.loginPassWord)
-                //
-                //  Utils.getMainLayout()
+                await preferenceUtil.put(Constants.USERNAME,this.loginPhone)
+                await preferenceUtil.put(Constants.PASSWORD,this.loginPassWord)
+
+                 Utils.getMainLayout()
               }else{
                 ShowToastUtils.show(result.errorMsg)
               }

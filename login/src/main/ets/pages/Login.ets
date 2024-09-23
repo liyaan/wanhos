@@ -1,6 +1,6 @@
 import hilog from '@ohos.hilog';
 import router from '@ohos.router';
-import  {Param, PostMethod, preferenceUtil,Constants} from '@ohos/httpUtils'
+import  {Param, PostMethod, preferenceUtil,Constants, httpHeaderMap, FunctionFunctionParam} from '@ohos/httpUtils'
 
 import { Log, ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
 import { Utils } from './utils/Utils';
@@ -63,17 +63,22 @@ export struct Login {
           // this.addO1<BaseEntity<TextList>>('10039').then((result)=>{
           //   hilog.info(0x0000, 'testTag', 'this.add() =%{public}s',result.data.links.articleList[0].link)
           // })
-
-          this.login<BaseEntity<LoginEntity>>(this.loginPhone,this.loginPassWord)
+          httpHeaderMap.set("aaaaa","bbbbbbbbbbbbbbb")
+          this.login<BaseEntity<LoginEntity>>(this.loginPhone,this.loginPassWord,((value)=>{
+            hilog.info(0x0000, 'testTag', 'httpHeaderMap result=%{public}s', value);
+          }),((value)=>{
+            hilog.info(0x0000, 'testTag', 'httpHeaderMap cookie result=%{public}s', value);
+          })
+          )
             .then(async (result)=>{
               hilog.info(0x0000, 'testTag', 'result=%{public}s', result.data.username);
               if(result.errorCode==0){
                 // PreferenceUtil.writeString(Constants.USERNAME,this.loginPhone)
                 // PreferenceUtil.writeString(Constants.PASSWORD,this.loginPassWord)
-                await preferenceUtil.put(Constants.USERNAME,this.loginPhone)
-                await preferenceUtil.put(Constants.PASSWORD,this.loginPassWord)
-
-                 Utils.getMainLayout()
+                // await preferenceUtil.put(Constants.USERNAME,this.loginPhone)
+                // await preferenceUtil.put(Constants.PASSWORD,this.loginPassWord)
+                //
+                //  Utils.getMainLayout()
               }else{
                 ShowToastUtils.show(result.errorMsg)
               }
@@ -145,7 +150,11 @@ export struct Login {
   // }
   //let map ="username="+this.loginPhone+"&password="+this.loginPassWord
   @PostMethod("https://www.wanandroid.com/user/login")
-  login<T>(@Param('username') username:string,@Param('password') password:string):Promise<T>{
+  login<T>(@Param('username') username:string,
+           @Param('password') password:string,
+           @FunctionFunctionParam("header") header:(value)=>void,
+           @FunctionFunctionParam("cookie") cookie:(value)=>void
+  ):Promise<T>{
     return
   }
   getHeader(header:string){

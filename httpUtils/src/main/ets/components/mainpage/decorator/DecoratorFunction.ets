@@ -1,4 +1,5 @@
 import { Log } from '@ohos/common/src/main/ets/components/mainpage/log/Log'
+import { containerUrl, httpHeaderMap } from '../../../../../..'
 import { HttpManager } from '../HttpManager'
 import { RequestOptions } from '../RequestOptions'
 
@@ -15,6 +16,9 @@ type FunParamMapKey = {
 
 let funParamMap = new Map<string, string>();
 let funParamValueMap = new Map<string, string>();
+let funParamFunValueMap = new Map<string, Function>();
+type headerFuc = (json: string) => void
+type cookieFuc = (json: string) => void
 
 export function GetMethod(url: string): MethodDecorator {
   return function (
@@ -108,7 +112,7 @@ export function PostJsonMethod(url: string): MethodDecorator {
       console.log('extraData', JSON.stringify(options.extraData))
       const result = new Promise<T>((resolve, reject) => {
         HttpManager.getInstance()
-          .post<T>(options.url,options.extraData).then((result) => {
+          .post<T>(options.url,options.extraData,((json)=>{}),((json)=>{})).then((result) => {
           resolve(result)
         }).catch((error) => {
           Log.log(`testTag ${JSON.stringify(error)} `)
@@ -129,6 +133,8 @@ export function PostMethod(url: string): MethodDecorator {
   ) {
     const originalMethod = descriptor.value
     let URL: string = url;
+    let header:headerFuc
+    let cookie:cookieFuc
     let options: RequestOptions = {
       url: URL,
       queryParams: {},
@@ -141,15 +147,30 @@ export function PostMethod(url: string): MethodDecorator {
         args.forEach((arg, index) => {
           // 通过已知的信息构造组合Key对象
           let obj: FunParamMapKey = { target: target, methodName: methodName, index: index };
-          let paramName = funParamMap[JSON.stringify(obj)];
-          if (typeof paramName !== 'undefined') {
-            if (typeof arg === 'string' || typeof arg === 'object' || arg instanceof ArrayBuffer || typeof arg === 'number') {
-              options.queryParams[paramName] = arg
-            } else {
-              console.log('参数类型不对')
-              throw new Error(`Invalid parameter type at index ${index}.`);
+          let paramName
+          if (typeof arg === 'function') {
+            paramName = funParamFunValueMap[JSON.stringify(obj)];
+            console.log('testTag funParamFunValueMap '+paramName)
+            if (typeof paramName !== 'undefined') {
+              if (paramName === 'header'){
+                header = arg
+              }else if (paramName === 'cookie'){
+                cookie = arg
+              }
+            }
+          }else{
+            paramName = funParamMap[JSON.stringify(obj)];
+            if (typeof paramName !== 'undefined') {
+              if (typeof arg === 'string' || typeof arg === 'object' || arg instanceof ArrayBuffer || typeof arg === 'number') {
+                options.queryParams[paramName] = arg
+              } else {
+                console.log('参数类型不对')
+                throw new Error(`Invalid parameter type at index ${index}.`);
+              }
             }
           }
+
+
         });
         //拼接请求参数
         options.extraData = Object.keys(options.queryParams).map(key => `${key}=${options.queryParams[key]}`).join('&')
@@ -164,8 +185,13 @@ export function PostMethod(url: string): MethodDecorator {
         options.url = url
       }
       const result = new Promise<T>((resolve, reject) => {
-        HttpManager.getInstance()
-          .postFrom<T>(options.url,options.extraData).then((result) => {
+        HttpManager.getInstance().setHeader(httpHeaderMap)
+          .postFrom<T>(options.url,options.extraData,((value)=>{
+            header(value)
+          }),((value)=>{
+            cookie(value)
+          })
+          ).then((result) => {
           resolve(result)
         }).catch((error) => {
           Log.log(`testTag ${JSON.stringify(error)} `)
@@ -177,7 +203,9 @@ export function PostMethod(url: string): MethodDecorator {
     };
   }
 }
+function getHeaderAndCookie(obj: FunParamMapKey,header:headerFuc,cookie:cookieFuc,arg:any){
 
+}
 
 export function GetUrlValueMethod(url: string): MethodDecorator {
   return function (
@@ -306,6 +334,17 @@ export function FunctionParam(paramName: string) {
   };
 }
 
+/**
+ * @Param 注解将想要获取的Param添加至内存Map中
+ * @param paramName
+ * @returns
+ */
+export function FunctionFunctionParam(paramName: string) {
+  return function (target: any, methodName: string, parameterIndex: number) {
+    let obj: FunParamMapKey = { target: target, methodName: methodName, index: parameterIndex };
+    funParamFunValueMap[JSON.stringify(obj)] = paramName;
+  };
+}
 
 
 

@@ -1,3 +1,4 @@
+import { httpHeaderMap } from './decorator/ContainerMap';
 import { IHttpListener } from './IHttpListener';
 
 type headerFuc = (json: string) => void
@@ -15,6 +16,7 @@ export  class AbsHttpRequest implements IHttpListener {
   onGetCookies(cookie: string): void {
     if (this.cookie!=null) {
       this.cookie(cookie)
+      httpHeaderMap.set("cookie",cookie)
     }
 
   }
@@ -22,6 +24,7 @@ export  class AbsHttpRequest implements IHttpListener {
   onGetHeaders(header: string): void {
     if(this.header!=null){
       this.header(header)
+      httpHeaderMap.set("header",header)
     }
   }
 

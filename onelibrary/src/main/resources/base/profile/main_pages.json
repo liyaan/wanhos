@@ -3,6 +3,7 @@
     "pages/ScrollDhJb",
     "pages/ListHeader",
     "pages/ListTabHeader",
-    "pages/ListTabScrollHeader"
+    "pages/ListTabScrollHeader",
+    "pages/ArkTSBase"
   ]
 }

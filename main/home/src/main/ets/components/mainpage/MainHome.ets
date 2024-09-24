@@ -256,7 +256,7 @@ export struct MainHome {
             this.getDataList()
             this.refreshingFlag = false
           }, 2000)
-        })
+        }).layoutWeight(1)
       }
       .width('100%')
       .alignItems(HorizontalAlign.Center)

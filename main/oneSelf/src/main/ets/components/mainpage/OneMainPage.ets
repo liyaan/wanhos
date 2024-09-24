@@ -4,7 +4,7 @@ import { SCROLLDHJB,LISTHEADER, LISTTABHEADER } from "@ohos/onelibrary"
 import { AlertBottomDialog } from './AlertBottomDialog'
 import { AlertPromptDialog } from './AlertPromptDialog'
 import { SelectDatePickerDialog } from './SelectDatePickerDialog'
-import { LISTTABSCROLLHEADER } from '@ohos/onelibrary/src/main/ets/utils/RouterUtils'
+import { ARKTSBASE, LISTTABSCROLLHEADER } from '@ohos/onelibrary/src/main/ets/utils/RouterUtils'
 
 @Component
 export struct OneMainPage {
@@ -84,6 +84,7 @@ export struct OneMainPage {
           this.linearWidget('自定义弹框选择时间','3')
           this.linearWidget('Tab滚动置顶',LISTTABHEADER)
           this.linearWidget('Tab_Scroll滚动置顶',LISTTABSCROLLHEADER)
+          this.linearWidget('ArkTS基础',ARKTSBASE)
         }
       }
 

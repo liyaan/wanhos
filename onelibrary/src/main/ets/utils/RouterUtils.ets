@@ -3,4 +3,5 @@ export const LISTHEADER:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages
 export const LISTTABHEADER:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ListTabHeader"
 export const LISTTABSCROLLHEADER:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ListTabScrollHeader"
 export const ARKTSBASE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBase"
+export const ARKTSBASELIST:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseList"
 

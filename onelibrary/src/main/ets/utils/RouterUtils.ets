@@ -4,4 +4,7 @@ export const LISTTABHEADER:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pa
 export const LISTTABSCROLLHEADER:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ListTabScrollHeader"
 export const ARKTSBASE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBase"
 export const ARKTSBASELIST:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseList"
+export const ARKTSBASESTATE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseState"
+export const ARKTSBASECP:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseCP"
+export const ARKTSBASEOLO:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseOLO"
 

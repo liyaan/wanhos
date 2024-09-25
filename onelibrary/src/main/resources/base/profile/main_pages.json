@@ -5,6 +5,9 @@
     "pages/ListTabHeader",
     "pages/ListTabScrollHeader",
     "pages/ArkTSBase",
-    "pages/ArkTSBaseList"
+    "pages/ArkTSBaseList",
+    "pages/ArkTSBaseState",
+    "pages/ArkTSBaseCP",
+    "pages/ArkTSBaseOLO"
   ]
 }

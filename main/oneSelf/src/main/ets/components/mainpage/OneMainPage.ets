@@ -4,7 +4,7 @@ import { SCROLLDHJB,LISTHEADER, LISTTABHEADER } from "@ohos/onelibrary"
 import { AlertBottomDialog } from './AlertBottomDialog'
 import { AlertPromptDialog } from './AlertPromptDialog'
 import { SelectDatePickerDialog } from './SelectDatePickerDialog'
-import { ARKTSBASE, ARKTSBASELIST, LISTTABSCROLLHEADER } from '@ohos/onelibrary/src/main/ets/utils/RouterUtils'
+import { ARKTSBASE, ARKTSBASECP, ARKTSBASELIST, ARKTSBASEOLO, ARKTSBASESTATE, LISTTABSCROLLHEADER } from '@ohos/onelibrary/src/main/ets/utils/RouterUtils'
 
 @Component
 export struct OneMainPage {
@@ -64,30 +64,40 @@ export struct OneMainPage {
 
   build() {
     Column() {
-      Row() {
-        Image('https://k.sinaimg.cn/n/sinakd20117/0/w800h800/20240127/889b-4c8a7876ebe98e4d619cdaf43fceea7c.jpg/w700d1q75cms.jpg')
-          .width(50)
-          .height(50)
-          .borderRadius(25)
-          .borderWidth(1)
-          .borderColor('#ccc')
-          .margin({ right: 10 })
-        Text(this.userName).fontSize(20).fontWeight(FontWeight.Bold)
-      }.width('100%').padding({ left: 15, right: 15 }).height(100).backgroundColor('#FfFfFf')
+      Stack({ alignContent: Alignment.TopStart }) {
+        Scroll(this.scroller) {
+          Column() {
+            Row() {
+              Image('https://k.sinaimg.cn/n/sinakd20117/0/w800h800/20240127/889b-4c8a7876ebe98e4d619cdaf43fceea7c.jpg/w700d1q75cms.jpg')
+                .width(50)
+                .height(50)
+                .borderRadius(25)
+                .borderWidth(1)
+                .borderColor('#ccc')
+                .margin({ right: 10 })
+              Text(this.userName).fontSize(20).fontWeight(FontWeight.Bold)
+            }.width('100%').padding({ left: 15, right: 15 }).height(100).backgroundColor('#FfFfFf')
 
-      Scroll(this.scroller) {
-        Column() {
-          this.linearWidget('Scroll组件结合属性动画实现导航背景色切换效果', SCROLLDHJB)
-          this.linearWidget('List滚动吸顶', LISTHEADER)
-          this.linearWidget('自定义底部弹框','1')
-          this.linearWidget('自定义提示弹框','2')
-          this.linearWidget('自定义弹框选择时间','3')
-          this.linearWidget('Tab滚动置顶',LISTTABHEADER)
-          this.linearWidget('Tab_Scroll滚动置顶',LISTTABSCROLLHEADER)
-          this.linearWidget('ArkTS基础',ARKTSBASE)
-          this.linearWidget('ArkTS基础-LIST',ARKTSBASELIST)
-        }
+            this.linearWidget('Scroll组件结合属性动画实现导航背景色切换效果', SCROLLDHJB)
+            this.linearWidget('List滚动吸顶', LISTHEADER)
+            this.linearWidget('自定义底部弹框','1')
+            this.linearWidget('自定义提示弹框','2')
+            this.linearWidget('自定义弹框选择时间','3')
+            this.linearWidget('Tab滚动置顶',LISTTABHEADER)
+            this.linearWidget('Tab_Scroll滚动置顶',LISTTABSCROLLHEADER)
+            this.linearWidget('ArkTS基础',ARKTSBASE)
+            this.linearWidget('ArkTS基础-LIST',ARKTSBASELIST)
+            this.linearWidget('ArkTS基础-STATE',ARKTSBASESTATE)
+            this.linearWidget('ArkTS基础-Consume-Provide',ARKTSBASECP)
+            this.linearWidget('ArkTS基础-ObjectLink-Observed',ARKTSBASEOLO)
+          }.width('100%').justifyContent(FlexAlign.Start)
+          .alignItems(HorizontalAlign.Start)
+        }.scrollable(ScrollDirection.Vertical)
+        .onScroll((xOffset: number, yOffset: number) => {
+
+        })
       }
+
 
     }
     .width('100%')

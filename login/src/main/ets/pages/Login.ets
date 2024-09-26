@@ -1,12 +1,15 @@
 import hilog from '@ohos.hilog';
 import router from '@ohos.router';
-import  {Param, PostMethod, preferenceUtil,Constants, httpHeaderMap, FunctionFunctionParam} from '@ohos/httpUtils'
+import  {Param, PostMethod, preferenceUtil,Constants, httpHeaderMap, FunctionFunctionParam, PostJsonMethod, MapToJson} from '@ohos/httpUtils'
 
 import { Log, ShowToastUtils } from '@ohos/httpUtils/oh_modules/@ohos/common';
 import { Utils } from './utils/Utils';
 import { BaseEntity } from './entity/BaseEntity';
 import { LoginEntity } from './entity/LoginEntity';
 import { REGISTER } from './utils/RouterUtils';
+import { BaseEntityText } from './entity/BaseEntityText';
+import HashMap from '@ohos.util.HashMap';
+import { BaseEntityPost } from './entity/BaseEntityPost';
 
 @Entry
 @Component
@@ -65,6 +68,7 @@ export struct Login {
           // })
           //增加header
           // httpHeaderMap.set("aaaaa","bbbbbbbbbbbbbbb")
+
           this.login<BaseEntity<LoginEntity>>(this.loginPhone,this.loginPassWord,((value)=>{
             hilog.info(0x0000, 'testTag', 'httpHeaderMap result=%{public}s', value);
           }),((value)=>{
@@ -83,6 +87,16 @@ export struct Login {
               }
             }).catch((error)=>{
             hilog.info(0x0000, 'testTag', 'error=%{public}s',JSON.stringify(error));
+          })
+          //--------------------post请求示例
+          let  map = new BaseEntityPost("1111",8,1)
+          // map.set("schoolKey","1111")
+          // map.set("currentPage",1)
+          // map.set("pageSize",8)
+          let json = JSON.stringify(map)
+          hilog.info(0x0000, 'testTag', 'loginPostMap=%{public}s',json);
+          this.loginPostObject<BaseEntityText>(map).then((result)=>{
+            hilog.info(0x0000, 'testTag', 'httpHeaderMap cookie result=%{public}s', JSON.stringify(result));
           })
           // let map ="username="+this.loginPhone+"&password="+this.loginPassWord
           // hilog.info(0x0000, 'testTag', 'loginPassWord=%{public}s',JSON.stringify(map));
@@ -154,6 +168,19 @@ export struct Login {
            @FunctionFunctionParam("header") header:(value)=>void,
            @FunctionFunctionParam("cookie") cookie:(value)=>void
   ):Promise<T>{
+    return
+  }
+  @PostJsonMethod("")
+  loginPost<T>(@Param('key') key:string,
+               @Param('page') currentPage:number,@Param('size') pageSize:number):Promise<T>{
+    return
+  }
+  @PostJsonMethod("")
+  loginPostObject<T>(json:BaseEntityPost):Promise<T>{
+    return
+  }
+  @PostJsonMethod("")
+  loginPostMap<T>(json:Map<string,any>):Promise<T>{
     return
   }
   getHeader(header:string){

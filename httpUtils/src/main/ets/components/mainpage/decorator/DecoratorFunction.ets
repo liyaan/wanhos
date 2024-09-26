@@ -1,7 +1,8 @@
 import { Log } from '@ohos/common/src/main/ets/components/mainpage/log/Log'
-import { containerUrl, httpHeaderMap } from '../../../../../..'
+import { containerUrl, httpHeaderMap, MapToJson } from '../../../../../..'
 import { HttpManager } from '../HttpManager'
 import { RequestOptions } from '../RequestOptions'
+import HashMap from '@ohos.util.HashMap'
 
 const TAG = "Decorator testTag"
 
@@ -88,30 +89,38 @@ export function PostJsonMethod(url: string): MethodDecorator {
     };
     descriptor.value = async function<T>(...args: any[]) {
       //对于方法中的每一个（methodName，arg）遍历加入到网络请求配置中
+      console.log("testTag args.length = ", args.length)
       args.forEach((arg, index) => {
-        console.log("参数值", JSON.stringify(arg))
+        console.log("testTag 参数值", JSON.stringify(arg))
         // 通过已知的信息构造组合Key对象
         let obj: FunParamMapKey = { target: target, methodName: methodName, index: index };
         // 通过组合Key（通过对内容的比较而不是值 节省内存）从内存map中获取@Param修饰的内容
         let paramName = funParamMap[JSON.stringify(obj)];
-        console.log("参数名：", paramName)
+        console.log("testTag 参数名：", paramName)
         // 将正确的参数名及值添加至网络请求参数中
         if (typeof paramName !== 'undefined') {
-          if (typeof arg === 'string' || typeof arg === 'object' || arg instanceof ArrayBuffer) {
+          if (typeof arg === 'string' || typeof arg === 'object' || typeof arg === 'number' || arg instanceof ArrayBuffer ) {
             options.extraData[paramName] = arg;
           } else {
-            throw new Error(`Invalid parameter type at index ${index}.`);
+            throw new Error(`testTag Invalid parameter type at index ${index}.`);
           }
         } else {
           //如果获取不到形参名 及未被@Param标记 并且参数的类型是对象
-          if (typeof arg === 'object') {
-            options.extraData = JSON.stringify(arg)
+          if(arg instanceof Map) {
+            options.extraData = MapToJson.mapToJson(arg)
+          }else if(arg instanceof HashMap) {
+            options.extraData = MapToJson.hashMapToJson(arg)
+          }else if(arg instanceof Object){
+            options.extraData = arg
+          }else {
+            throw new Error(`testTag Invalid parameter type at index ${index}.`);
           }
+
         }
       });
-      console.log('extraData', JSON.stringify(options.extraData))
+      console.log('testTag extraData', JSON.stringify(options.extraData))
       const result = new Promise<T>((resolve, reject) => {
-        HttpManager.getInstance()
+        HttpManager.getInstance().setHeader(httpHeaderMap)
           .post<T>(options.url,options.extraData,((json)=>{}),((json)=>{})).then((result) => {
           resolve(result)
         }).catch((error) => {

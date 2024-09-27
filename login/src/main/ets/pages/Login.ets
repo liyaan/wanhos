@@ -89,15 +89,17 @@ export struct Login {
             hilog.info(0x0000, 'testTag', 'error=%{public}s',JSON.stringify(error));
           })
           //--------------------post请求示例
-          let  map = new BaseEntityPost("1111",8,1)
+          // let  map = new BaseEntityPost("1111",8,1)
           // map.set("schoolKey","1111")
           // map.set("currentPage",1)
           // map.set("pageSize",8)
-          let json = JSON.stringify(map)
-          hilog.info(0x0000, 'testTag', 'loginPostMap=%{public}s',json);
-          this.loginPostObject<BaseEntityText>(map).then((result)=>{
-            hilog.info(0x0000, 'testTag', 'httpHeaderMap cookie result=%{public}s', JSON.stringify(result));
-          })
+          // let json = JSON.stringify(map)
+          // hilog.info(0x0000, 'testTag', 'loginPostMap=%{public}s',json);
+          // this.loginPostObject<BaseEntityText>(map).then((result)=>{
+          //   hilog.info(0x0000, 'testTag', 'httpHeaderMap cookie result=%{public}s', JSON.stringify(result));
+          // })
+
+
           // let map ="username="+this.loginPhone+"&password="+this.loginPassWord
           // hilog.info(0x0000, 'testTag', 'loginPassWord=%{public}s',JSON.stringify(map));
           // HttpManager

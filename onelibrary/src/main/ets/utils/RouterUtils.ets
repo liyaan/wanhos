@@ -7,4 +7,5 @@ export const ARKTSBASELIST:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pa
 export const ARKTSBASESTATE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseState"
 export const ARKTSBASECP:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseCP"
 export const ARKTSBASEOLO:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseOLO"
+export const CALCULATEPAGE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/CalculatePage"
 

@@ -4,7 +4,7 @@ import { SCROLLDHJB,LISTHEADER, LISTTABHEADER } from "@ohos/onelibrary"
 import { AlertBottomDialog } from './AlertBottomDialog'
 import { AlertPromptDialog } from './AlertPromptDialog'
 import { SelectDatePickerDialog } from './SelectDatePickerDialog'
-import { ARKTSBASE, ARKTSBASECP, ARKTSBASELIST, ARKTSBASEOLO, ARKTSBASESTATE, LISTTABSCROLLHEADER } from '@ohos/onelibrary/src/main/ets/utils/RouterUtils'
+import { ARKTSBASE, ARKTSBASECP, ARKTSBASELIST, ARKTSBASEOLO, ARKTSBASESTATE, CALCULATEPAGE, LISTTABSCROLLHEADER } from '@ohos/onelibrary/src/main/ets/utils/RouterUtils'
 
 @Component
 export struct OneMainPage {
@@ -90,6 +90,7 @@ export struct OneMainPage {
             this.linearWidget('ArkTS基础-STATE',ARKTSBASESTATE)
             this.linearWidget('ArkTS基础-Consume-Provide',ARKTSBASECP)
             this.linearWidget('ArkTS基础-ObjectLink-Observed',ARKTSBASEOLO)
+            this.linearWidget('计算器',CALCULATEPAGE)
           }.width('100%').justifyContent(FlexAlign.Start)
           .alignItems(HorizontalAlign.Start)
         }.scrollable(ScrollDirection.Vertical)

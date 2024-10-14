@@ -9,6 +9,10 @@ import { ContainerUrl }  from './src/main/ets/components/mainpage/decorator/Cont
 export { httpHeaderMap }  from './src/main/ets/components/mainpage/decorator/ContainerMap'
 export { GetMethod ,Param,PostMethod,PostJsonMethod,FunctionParam,GetUrlValueMethod,FunctionFunctionParam} from './src/main/ets/components/mainpage/decorator/DecoratorFunction'
 
+
+export { LifecycleEvent } from './src/main/ets/components/mainpage/decorator/LifecycleEvent'
+export { Lifecycle ,LifecycleState } from './src/main/ets/components/mainpage/decorator/LifecycleState'
+
 // export default PreferencesUtils
 export const preferenceUtil = new PreferencesUtils()
 export const containerUrl = new ContainerUrl()

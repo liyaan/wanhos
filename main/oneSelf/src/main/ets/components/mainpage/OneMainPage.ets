@@ -1,4 +1,4 @@
-import { preferenceUtil, Constants } from '@ohos/httpUtils'
+import { preferenceUtil, Constants, Lifecycle, LifecycleEvent, LifecycleState } from '@ohos/httpUtils'
 import router from '@ohos.router'
 import { SCROLLDHJB,LISTHEADER, LISTTABHEADER } from "@ohos/onelibrary"
 import { AlertBottomDialog } from './AlertBottomDialog'
@@ -11,6 +11,7 @@ export struct OneMainPage {
   @State userName: string = ""
   @State passWord: string = ""
   scroller: Scroller = new Scroller()
+  @LifecycleEvent lifecycle: Lifecycle = new Lifecycle()
   dialogController:CustomDialogController = new CustomDialogController({
     builder:AlertBottomDialog(
       {
@@ -57,6 +58,11 @@ export struct OneMainPage {
     alignment:DialogAlignment.Bottom
   })
   aboutToAppear() {
+    this.lifecycle.addObserver((state:LifecycleState)=>{
+      if (state == LifecycleState.ToDisappear) {
+        console.log("LifecycleState.ToDisappear = "+LifecycleState.ToDisappear)
+      }
+    })
     preferenceUtil.get(Constants.USERNAME).then((result) => {
       this.userName = result.toString()
     })

@@ -12,6 +12,15 @@
 #include <stdlib.h>
 
 using namespace std;
+
+struct AddonData {
+    napi_async_work asyncWork = nullptr;
+    napi_deferred deferred = nullptr;
+    napi_ref callback = nullptr;
+    double args[2] = {0};
+    double result = 0;
+};
+
 static napi_value Add(napi_env env, napi_callback_info info) {
     size_t requireArgc = 2;
     size_t argc = 2;
@@ -186,6 +195,70 @@ static napi_value bq_GPIO_State(napi_env env, napi_callback_info info) {
     napi_create_string_utf8(env, ret, strlen(ret), &returnValue);
     return returnValue;
 }
+
+// 业务逻辑处理函数，由worker线程池调度执行。
+static void addExecuteCB(napi_env env, void *data) {
+    AddonData *addonData = (AddonData *)data;
+
+    // 执行复杂计算，不阻塞主线程。此处用一个加法简单示意。
+    addonData->result = addonData->args[0] + addonData->args[1];
+}
+static void addPromiseCompleteCB(napi_env env, napi_status status, void *data) {
+    AddonData *addonData = (AddonData *)data;
+    napi_value result = nullptr;
+    napi_create_double(env, addonData->result, &result);
+    napi_resolve_deferred(env, addonData->deferred, result);
+
+    // 删除napi_ref对象
+    if (addonData->callback != nullptr) {
+        napi_delete_reference(env, addonData->callback);
+    }
+
+    // 删除异步工作项
+    napi_delete_async_work(env, addonData->asyncWork);
+    delete addonData;
+    addonData = nullptr;
+}
+
+static napi_value addAsync(napi_env env, napi_callback_info info) {
+    size_t argc = 3;
+    napi_value args[3] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    napi_valuetype valueType;
+    napi_typeof(env, args[0], &valueType);
+    napi_valuetype valueType1;
+    napi_typeof(env, args[1], &valueType1);
+    napi_valuetype valueType2;
+    napi_typeof(env, args[2], &valueType2);
+    if (valueType != napi_number || valueType1 != napi_number) {
+        napi_throw_type_error(env, nullptr, "Wrong arguments. 2 numbers expected.");
+        return NULL;
+    }
+    if (valueType2 != napi_function) {
+        napi_throw_type_error(env, nullptr, "Callback function expected.");
+        return nullptr;
+    }
+    auto addonData = new AddonData{
+        .asyncWork = nullptr,
+    };
+    // 将接收到的参数传入用户自定义上下文数据
+    napi_get_value_double(env, args[0], &addonData->args[0]);
+    napi_get_value_double(env, args[1], &addonData->args[1]);
+    napi_create_reference(env, args[2], 1, &addonData->callback);
+
+    // 创建async work，创建成功后通过最后一个参数接收async work的handle
+    napi_value resourceName = nullptr;
+    napi_create_string_utf8(env, "addCallback", NAPI_AUTO_LENGTH, &resourceName);
+    napi_create_async_work(env, nullptr, resourceName, addExecuteCB, addPromiseCompleteCB, (void *)addonData,
+                           &addonData->asyncWork);
+    // 将刚创建的async work加到队列，由底层去调度执行
+    napi_queue_async_work(env, addonData->asyncWork);
+
+    // 原生方法返回空对象
+    napi_value result = 0;
+    napi_get_null(env, &result);
+    return result;
+}
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports) {
     napi_property_descriptor desc[] = {
@@ -195,7 +268,8 @@ static napi_value Init(napi_env env, napi_value exports) {
         {"division", nullptr, Division, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"bq_GPIO_On", nullptr, Bq_GPIO_On, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"bq_GPIO_Off", nullptr, Bq_GPIO_Off, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"bq_GPIO_State", nullptr, bq_GPIO_State, nullptr, nullptr, nullptr, napi_default, nullptr}};
+        {"bq_GPIO_State", nullptr, bq_GPIO_State, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"addAsync", nullptr, addAsync, nullptr, nullptr, nullptr, napi_default, nullptr}};
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);
     return exports;
 }

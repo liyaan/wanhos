@@ -36,15 +36,6 @@
     "requestPermissions": [
       {
         "name": "ohos.permission.INTERNET"
-      },
-      {
-        "name": "ohos.permission.APPROXIMATELY_LOCATION"
-      },
-      {
-        "name": "ohos.permission.CAMERA"
-      },
-      {
-        "name": "ohos.permission.READ_IMAGEVIDEO"
       }
     ]
   }

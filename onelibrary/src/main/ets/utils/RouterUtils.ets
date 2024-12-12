@@ -9,3 +9,6 @@ export const ARKTSBASECP:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/page
 export const ARKTSBASEOLO:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ArkTSBaseOLO"
 export const CALCULATEPAGE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/CalculatePage"
 
+
+export const BLURPAGE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/BlurPage"
+

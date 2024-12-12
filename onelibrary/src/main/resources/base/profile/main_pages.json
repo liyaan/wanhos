@@ -9,6 +9,7 @@
     "pages/ArkTSBaseState",
     "pages/ArkTSBaseCP",
     "pages/ArkTSBaseOLO",
-    "pages/CalculatePage"
+    "pages/CalculatePage",
+    "pages/BlurPage"
   ]
 }

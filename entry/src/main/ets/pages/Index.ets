@@ -73,6 +73,12 @@ struct Index {
             hilog.info(0x0000, 'testTag', 'Test NAPI 3 - 2 = %{public}d', testNapi.minus(3, 2));
             hilog.info(0x0000, 'testTag', 'Test NAPI 3 * 2 = %{public}d', testNapi.multiply(3, 2));
             hilog.info(0x0000, 'testTag', 'Test NAPI 4 / 2 = %{public}d', testNapi.division(4, 2));
+            testNapi.getMd5("aaaaaaa").then((res)=>{
+              hilog.info(0x0000, 'testTag', 'getMd5 = %{public}s', res);
+            })
+            testNapi.addAsync(1,2,(result)=>{
+              hilog.info(0x0000, 'testTag', 'addAsync = %{public}d', result);
+            })
             Utils.getMainLayout()
           })
           .transition({ type: TransitionType.Insert, scale: { x: 1.0, y: 0 } })
@@ -128,10 +134,10 @@ struct ledList {
         .enabled(this.item.isLedExit)
         .onChange(async (isOn) => {
           if (isOn) {
-            let res: string = await NAPI.bq_GPIO_On(this.item.ledAddress)
+            let res: string = await testNapi.bq_GPIO_On(this.item.ledAddress)
             this.tip(res)
           } else {
-            let res: string = await NAPI.bq_GPIO_Off(this.item.ledAddress)
+            let res: string = await testNapi.bq_GPIO_Off(this.item.ledAddress)
             this.tip(res)
           }
         })

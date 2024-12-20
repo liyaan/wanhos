@@ -35,11 +35,19 @@ export class JsonHttpRequest implements IHttpRequest {
             if (bean) {
               console.info(TAG+'testTag ,code:' + JSON.stringify(response.responseCode));
               if (this.iHttpListener) {
-                this.iHttpListener.onGetHeaders(JSON.stringify(response.header));
-                this.iHttpListener.onGetCookies(JSON.stringify(response.cookies));
-                // data.header为HTTP响应头，可根据业务需要进行解析
-                console.info(TAG+'testTag ,header:' + JSON.stringify(response.header));
-                console.info(TAG+'testTag ,cookies:' + JSON.stringify(response.cookies)); // 8+
+                if(response.header){
+                  this.iHttpListener.onGetHeaders(JSON.stringify(response.header));
+                  console.info(TAG+'testTag ,header:' + JSON.stringify(response.header));
+                }
+                if (response.cookies) {
+                  this.iHttpListener.onGetCookies(JSON.stringify(response.cookies));
+                  console.info(TAG+'testTag ,cookies:' + JSON.stringify(response.cookies)); // 8+
+                }
+                // this.iHttpListener.onGetHeaders(JSON.stringify(response.header));
+                // this.iHttpListener.onGetCookies(JSON.stringify(response.cookies));
+                // // data.header为HTTP响应头，可根据业务需要进行解析
+                // console.info(TAG+'testTag ,header:' + JSON.stringify(response.header));
+                // console.info(TAG+'testTag ,cookies:' + JSON.stringify(response.cookies)); // 8+
                 // 执行结果进行回调
                 // this.iHttpListener.onSuccess(data.result.toString());
               }
@@ -103,12 +111,15 @@ export class JsonHttpRequest implements IHttpRequest {
       console.info(TAG+'testTag ,code:' + JSON.stringify(data.responseCode));
 
       if (this.iHttpListener) {
-        this.iHttpListener.onGetHeaders(JSON.stringify(data.header));
-        this.iHttpListener.onGetCookies(JSON.stringify(data.cookies));
-
         // data.header为HTTP响应头，可根据业务需要进行解析
-        console.info(TAG+'testTag ,header:' + JSON.stringify(data.header));
-        console.info(TAG+'testTag ,cookies:' + JSON.stringify(data.cookies)); // 8+
+        if(data.header){
+          this.iHttpListener.onGetHeaders(JSON.stringify(data.header));
+          console.info(TAG+'testTag ,header:' + JSON.stringify(data.header));
+        }
+        if (data.cookies) {
+          this.iHttpListener.onGetCookies(JSON.stringify(data.cookies));
+          console.info(TAG+'testTag ,cookies:' + JSON.stringify(data.cookies)); // 8+
+        }
         // 执行结果进行回调
         // this.iHttpListener.onSuccess(data.result.toString());
       }

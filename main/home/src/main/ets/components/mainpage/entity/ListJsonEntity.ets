@@ -16,3 +16,20 @@ export class ListJsonData{
   niceShareDate:string
   is:number
 }
+
+export class ListJsonSearchEntity{
+  datas:ListJsonSearchData[]
+}
+
+export class ListJsonSearchData{
+  link:string
+  title:string
+  desc:string
+  envelopePic:string
+  id:number
+  projectLink:string
+  chapterName:string
+  chapterId:number
+  superChapterId:number
+  superChapterName:number
+}

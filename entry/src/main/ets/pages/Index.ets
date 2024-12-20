@@ -3,6 +3,8 @@ import testNapi from 'libentry.so'
 import { Utils } from '@ohos/login';
 import { ledModel } from './LedModel';
 import promptAction from '@ohos.promptAction';
+import { EncryptionUtils } from '../../../../../httpUtils/oh_modules/@ohos/common';
+
 
 @Entry
 @Component
@@ -75,10 +77,15 @@ struct Index {
             hilog.info(0x0000, 'testTag', 'Test NAPI 4 / 2 = %{public}d', testNapi.division(4, 2));
             testNapi.getMd5("aaaaaaa").then((res)=>{
               hilog.info(0x0000, 'testTag', 'getMd5 = %{public}s', res);
+              const data = EncryptionUtils.base64Encode(res)
+              hilog.info(0x0000, 'testTag', 'base64Encode = %{public}s', data);
+              const dataDecode = EncryptionUtils.base64Decode(data)
+              hilog.info(0x0000, 'testTag', 'base64Decode = %{public}s', dataDecode);
             })
             testNapi.addAsync(1,2,(result)=>{
               hilog.info(0x0000, 'testTag', 'addAsync = %{public}d', result);
             })
+
             Utils.getMainLayout()
           })
           .transition({ type: TransitionType.Insert, scale: { x: 1.0, y: 0 } })

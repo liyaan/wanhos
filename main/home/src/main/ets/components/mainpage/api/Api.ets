@@ -1,4 +1,4 @@
-import {FunctionParam,GetUrlValueMethod,GetMethod} from '@ohos/httpUtils'
+import {FunctionParam,GetUrlValueMethod,GetMethod, PostJsonMethod, Param, PostMethod} from '@ohos/httpUtils'
 import { BASE_URL } from '../utils/Consts';
 export class Api{
   @GetUrlValueMethod(BASE_URL+"article/list/page/json")
@@ -12,5 +12,8 @@ export class Api{
 
   @GetMethod(BASE_URL+"hotkey/json")
   getHotkeyJson<T>():Promise<T>{ return }
+
+  @PostMethod(BASE_URL+"article/query/0/json")
+  getQueryJson<T>(@Param('k') k:string):Promise<T>{ return }
 }
 export const api = new Api();

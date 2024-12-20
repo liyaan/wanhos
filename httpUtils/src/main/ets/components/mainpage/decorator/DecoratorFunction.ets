@@ -196,9 +196,13 @@ export function PostMethod(url: string): MethodDecorator {
       const result = new Promise<T>((resolve, reject) => {
         HttpManager.getInstance().setHeader(httpHeaderMap)
           .postFrom<T>(options.url,options.extraData,((value)=>{
-            header(value)
+            if (header) {
+              header(value)
+            }
           }),((value)=>{
-            cookie(value)
+            if (cookie) {
+              cookie(value)
+            }
           })
           ).then((result) => {
           resolve(result)

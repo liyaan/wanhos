@@ -12,6 +12,7 @@ import { FriendJson } from './entity/FriendJson'
 import { HotkeyJson } from './entity/HotkeyJson'
 import { FriendJsonHome } from './FriendJsonHome'
 import router from '@ohos.router'
+import { SearchDialog } from './SearchDialog'
 
 
 @Component
@@ -41,7 +42,15 @@ export struct MainHome {
       customStyle: true
     }
   )
-
+  dialogSearchController:CustomDialogController = new CustomDialogController(
+    {
+      builder:SearchDialog({cancel:()=>{
+        this.dialogSearchController.close()
+      }}),
+      autoCancel: true,
+      customStyle: true
+    }
+  )
   @Builder
   private LoadingCustom() {
     Stack() {
@@ -133,6 +142,9 @@ export struct MainHome {
                 }.width('100%')
                 .height(50)
                 .borderRadius(25)
+                .onClick(()=>{
+                  this.dialogSearchController.open()
+                })
               }, (item) => JSON.stringify(item))
             }
             .loop(true)

@@ -12,3 +12,5 @@ export const CALCULATEPAGE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pa
 
 export const BLURPAGE:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/BlurPage"
 
+export const CHATVIEW:string = "@bundle:com.liyaan.wanhos/onelibrary/ets/pages/ChatIndexView"
+

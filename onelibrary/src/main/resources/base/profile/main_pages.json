@@ -10,6 +10,7 @@
     "pages/ArkTSBaseCP",
     "pages/ArkTSBaseOLO",
     "pages/CalculatePage",
-    "pages/BlurPage"
+    "pages/BlurPage",
+    "pages/ChatIndexView"
   ]
 }
